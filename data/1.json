@@ -1,0 +1,238 @@
+[
+    {
+        "type":"Pensamento",
+        "questions":
+            [
+                {
+                    "weight":1,
+                    "text":"O que é Deus",
+                    "answer":[
+                        {
+                            "text":"Inteligência suprema e causa primária de todas as coisas.",
+                            "value":1
+                        },
+                        {
+                            "text":"Nada, pois não existe",
+                            "value":0
+                        }
+                    ]
+                },
+                {
+                    "weight":2,
+                    "text":"O que é infinito?",
+                    "answer":[
+                        {
+                            "text":"Eterno.",
+                            "value":1
+                        },
+                        {
+                            "text":"O que não tem fim",
+                            "value":0
+                        }
+                    ]
+                },
+                {
+                    "weight":3,
+                    "text":"O que é infinito?",
+                    "answer":[
+                        {
+                            "text":"Eterno.",
+                            "value":1
+                        },
+                        {
+                            "text":"O que não tem fim",
+                            "value":0
+                        }
+                    ]
+                }
+            ]
+    },
+    {
+        "type":"Colônias",
+        "questions":
+            [
+                {
+                    "weight":1,
+                    "text":"O que é Deus",
+                    "answer":[
+                        {
+                            "text":"Inteligência suprema e causa primária de todas as coisas.",
+                            "value":1
+                        },
+                        {
+                            "text":"Nada, pois não existe",
+                            "value":0
+                        }
+                    ]
+                },
+                {
+                    "weight":2,
+                    "text":"O que é infinito?",
+                    "answer":[
+                        {
+                            "text":"Eterno.",
+                            "value":1
+                        },
+                        {
+                            "text":"O que não tem fim",
+                            "value":0
+                        }
+                    ]
+                },
+                {
+                    "weight":3,
+                    "text":"O que é infinito?",
+                    "answer":[
+                        {
+                            "text":"Eterno.",
+                            "value":1
+                        },
+                        {
+                            "text":"O que não tem fim",
+                            "value":0
+                        }
+                    ]
+                }
+            ]
+    },
+    {
+        "type":"Plano superior",
+        "questions":
+            [
+                {
+                    "weight":1,
+                    "text":"O que é Deus",
+                    "answer":[
+                        {
+                            "text":"Inteligência suprema e causa primária de todas as coisas.",
+                            "value":1
+                        },
+                        {
+                            "text":"Nada, pois não existe",
+                            "value":0
+                        }
+                    ]
+                },
+                {
+                    "weight":2,
+                    "text":"O que é infinito?",
+                    "answer":[
+                        {
+                            "text":"Eterno.",
+                            "value":1
+                        },
+                        {
+                            "text":"O que não tem fim",
+                            "value":0
+                        }
+                    ]
+                },
+                {
+                    "weight":4,
+                    "text":"O que é infinito?"
+                }
+            ]
+    },
+    {
+        "type":"Plano inferior",
+        "questions":
+            [
+                {
+                    "weight":1,
+                    "text":"O que é Deus",
+                    "answer":[
+                        {
+                            "text":"Inteligência suprema e causa primária de todas as coisas.",
+                            "value":1
+                        },
+                        {
+                            "text":"Nada, pois não existe",
+                            "value":0
+                        }
+                    ]
+                },
+                {
+                    "weight":2,
+                    "text":"O que é infinito?",
+                    "answer":[
+                        {
+                            "text":"Eterno.",
+                            "value":1
+                        },
+                        {
+                            "text":"O que não tem fim",
+                            "value":0
+                        }
+                    ]
+                }
+            ]
+    },
+    {
+        "type":"Curiosidades",
+        "questions":
+            [
+                {
+                    "weight":1,
+                    "text":"O que é Deus",
+                    "answer":[
+                        {
+                            "text":"Inteligência suprema e causa primária de todas as coisas.",
+                            "value":1
+                        },
+                        {
+                            "text":"Nada, pois não existe",
+                            "value":0
+                        }
+                    ]
+                },
+                {
+                    "weight":2,
+                    "text":"O que é infinito?",
+                    "answer":[
+                        {
+                            "text":"Eterno.",
+                            "value":1
+                        },
+                        {
+                            "text":"O que não tem fim",
+                            "value":0
+                        }
+                    ]
+                }
+            ]
+    },
+    {
+        "type":"Revisão",
+        "questions":
+            [
+                {
+                    "weight":1,
+                    "text":"O que é Deus",
+                    "answer":[
+                        {
+                            "text":"Inteligência suprema e causa primária de todas as coisas.",
+                            "value":1
+                        },
+                        {
+                            "text":"Nada, pois não existe",
+                            "value":0
+                        }
+                    ]
+                },
+                {
+                    "weight":2,
+                    "text":"O que é infinito?",
+                    "answer":[
+                        {
+                            "text":"Eterno.",
+                            "value":1
+                        },
+                        {
+                            "text":"O que não tem fim",
+                            "value":0
+                        }
+                    ]
+                }
+            ]
+    }
+]

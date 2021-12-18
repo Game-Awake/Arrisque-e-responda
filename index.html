@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: black;
+      }
+      canvas {
+        outline: rgb(230, 216, 21) 1px solid;
+        box-shadow: 0 0 20px rgb(141, 133, 16);
+      }
+      .grid {
+        margin: auto;
+        width: 80%;
+        text-align: center;
+      }
+      .rowGame {
+        display: flex;
+        width: 100%;
+        height: 600px;
+      }
+      .column10 {
+        margin: auto;
+        width: 75px;
+        vertical-align: middle;
+      }
+      .columnBottom {
+        margin-top: 10px;
+      }
+      .column80 {
+        width: 80%;
+      }
+      .img-vertical {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        width: 64px;
+        height: 64px;
+      }
+      .img-horizontal {
+        margin-left: 15px;
+        margin-right: 15px;
+        width: 64px;
+        height: 64px;
+      }
+      .project {
+        float: right;
+        font-size: 30px;
+        color: white;
+        margin-right: 10px;
+      }
+      .answer {
+        width: 300px;
+      }
+
+    </style>
+    <meta charset="utf-8">
+  </head>
+  <body style="background-color: black;">
+    <div class="grid">
+    <div class="row">
+      <div class="column">
+        <img class="img-horizontal" src="assets/spritesheets/0.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/1.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/2.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/1.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/0.png"/>
+      </div>
+    </div>
+    <div class="rowGame">
+      <div class="column10">
+        <img class="img-vertical" src="assets/spritesheets/0.png"/>
+        <img class="img-vertical"  src="assets/spritesheets/1.png"/>
+        <img class="img-vertical"  src="assets/spritesheets/2.png"/>
+        <img class="img-vertical"  src="assets/spritesheets/1.png"/>
+        <img class="img-vertical"  src="assets/spritesheets/0.png"/>
+      </div>
+      <div id="divCanvas" class="column80">
+      </div>
+      <div class="column10">
+        <img class="img-vertical" src="assets/spritesheets/0.png"/>
+        <img class="img-vertical"  src="assets/spritesheets/1.png"/>
+        <img class="img-vertical"  src="assets/spritesheets/2.png"/>
+        <img class="img-vertical"  src="assets/spritesheets/1.png"/>
+        <img class="img-vertical"  src="assets/spritesheets/0.png"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columnBottom">
+        <img class="img-horizontal" src="assets/spritesheets/0.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/1.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/2.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/1.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/0.png"/>
+      </div>
+    </div>
+    </div>
+    <div class="project">GAME AWAKE</div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="js/phaser.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <script type="text/javascript" src="https://projeto-game-awake.github.io/Home/js/GameAwakeUtils.js"></script>
+    <script type="text/javascript" src="js/class/Option.js"></script>
+    <script type="text/javascript" src="js/scene/main.js"></script>
+    <script type="text/javascript" src="js/scene/game.js"></script>
+  </body>
+</html>
