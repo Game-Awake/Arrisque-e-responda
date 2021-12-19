@@ -14,7 +14,7 @@ class Game extends Phaser.Scene
     {
         let scene = this;
         
-                let element = this.add.dom(0, 200).createFromCache("start");
+                let element = this.add.dom(isSafari() ? 0 : width/2, 200).createFromCache("start");
                 element.addListener("click");
                 console.log(element);
                 element.setVisible(true);
@@ -75,3 +75,10 @@ const jogo = url.searchParams.get("jogo");
 
 let game = new Phaser.Game(config);
 let tutorial = 0;
+
+function isSafari() {
+    return navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
+        navigator.userAgent &&
+        navigator.userAgent.indexOf('CriOS') == -1 &&
+        navigator.userAgent.indexOf('FxiOS') == -1;
+}
