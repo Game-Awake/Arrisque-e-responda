@@ -113,7 +113,7 @@ class Main extends Phaser.Scene
       });
     }
     selectOption(questions,weight) {
-      if(questions.length == 0) {
+      if(questions.length == 0 || this.isVisible) {
         return;
       }
       question = questions[Phaser.Math.Between(0,questions.length-1)];
@@ -126,6 +126,7 @@ class Main extends Phaser.Scene
           $("#questionRow").append(div);
           $("button").click(() => {
             this.calculate(question.answer[i].value,question.weight);
+            this.isVisible = false;
             this.element.setVisible(false);
           });          
         }
@@ -134,15 +135,19 @@ class Main extends Phaser.Scene
         $("#questionRow").append(div);
         $(".right").click(() => {
           this.calculate(1,question.weight);
+          this.isVisible = false;
           this.element.setVisible(false);
         });
         $(".wrong").click(() => {
           this.calculate(0,question.weight);
+          this.isVisible = false;
           this.element.setVisible(false);
         });
       }
       
+      this.isVisible = true;
       this.element.setVisible(true);
+
       this.tweens.add({
         targets: this.element,
         y: height/2,
