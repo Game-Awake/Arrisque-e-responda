@@ -131,7 +131,8 @@ class Main extends Phaser.Scene
         for(let i=0;i<question.answer.length;i++) {
           let div = $("<div class=\"row answerDiv\"><div class=\"col\"><button class=\"answer\">"+question.answer[i].text+"</button></div></div>");
           $("#questionRow").append(div);
-          $("button").click(() => {
+          $(div,"button").click(() => {
+            console.log(question.answer[i].value);
             this.calculate(question.answer[i].value,question.weight);
             this.isVisible = false;
             this.element.setVisible(false);
