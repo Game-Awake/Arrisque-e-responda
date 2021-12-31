@@ -11,6 +11,7 @@ class Main extends Phaser.Scene
 
     init(data) {
       this.teams = data.teams;
+      this.json = data.json;
     }
 
     preload ()
@@ -21,7 +22,9 @@ class Main extends Phaser.Scene
 
     create ()
     {
-      this.json = GameAwakeUtils.loadConfig(this,jogo);
+      if(jogo) {
+        this.json = GameAwakeUtils.loadConfig(this,jogo);
+      }
       this.currentTeam = 0;
 
       for(let i=0;i<this.teams*2;i+=2) {
@@ -48,7 +51,9 @@ class Main extends Phaser.Scene
         this.board.types[i] = {name:item.type,options:[]};
         for(let j=0;j<item.questions.length;j++) {
           let w = item.questions[j].weight;
-          this.board.types[i].options[w] = {weight:w,questions:[]};
+          if(!this.board.types[i].options[w]) {
+            this.board.types[i].options[w] = {weight:w,questions:[]};
+          }
           if(!this.board.types[i].options[w].questions) {
             this.board.types[i].options[w].questions = [];
           }
@@ -76,12 +81,12 @@ class Main extends Phaser.Scene
             text = option.weight * 100;
             option.container = new Option(110+(i+1)*150,50+j*80,150,80,0xffffff,2,0x000000,
               text, style,
-              () => this.selectOption(option.questions,option.weight), this);
+              () => this.selectOption(option.questions,option.container), this);
           }
         }
       }
 
-      this.element = this.add.dom(isSafari() ? 0 : width/2, height).createFromCache("question");
+      this.element = this.add.dom(isSafari() ? width/2 : 0, height).createFromCache("question");
       this.element.setVisible(false);
       this.element.addListener("click");
       this.element.on("click", function (event) {
@@ -112,15 +117,17 @@ class Main extends Phaser.Scene
           }
       });
     }
-    selectOption(questions,weight) {
+    selectOption(questions,container) {
       if(questions.length == 0 || this.isVisible) {
         return;
       }
-      question = questions[Phaser.Math.Between(0,questions.length-1)];
+      
+      question = questions.splice(Phaser.Math.Between(0,questions.length-1),1)[0];
       $("#question").html(question.text);
       $("button").unbind('click');
       $(".answerDiv").remove();
       if(question.answer) {
+        question.answer = this.suffleArray(question.answer);
         for(let i=0;i<question.answer.length;i++) {
           let div = $("<div class=\"row answerDiv\"><div class=\"col\"><button class=\"answer\">"+question.answer[i].text+"</button></div></div>");
           $("#questionRow").append(div);
@@ -128,6 +135,9 @@ class Main extends Phaser.Scene
             this.calculate(question.answer[i].value,question.weight);
             this.isVisible = false;
             this.element.setVisible(false);
+            if(questions.length == 0) {
+              container.alpha = 0;
+            }
           });          
         }
       } else {
@@ -136,12 +146,18 @@ class Main extends Phaser.Scene
         $(".right").click(() => {
           this.calculate(1,question.weight);
           this.isVisible = false;
-          this.element.setVisible(false);
+          this.element.setVisible(false);      
+          if(questions.length == 0) {
+            container.alpha = 0;
+          }
         });
         $(".wrong").click(() => {
           this.calculate(0,question.weight);
           this.isVisible = false;
           this.element.setVisible(false);
+          if(questions.length == 0) {
+            container.alpha = 0;
+          }
         });
       }
       
@@ -162,5 +178,16 @@ class Main extends Phaser.Scene
       this.currentTeam++;
       this.currentTeam = this.currentTeam % this.teams;
       this.board.teams[this.currentTeam].name.setTint(0xffffff);
+    }
+    suffleArray(items) {
+      let newOrder = [];
+      let i = 0;
+      while (items.length > 0) {
+          newOrder[i++] = items.splice(
+            Phaser.Math.Between(0, items.length - 1),
+            1
+          )[0];
+      }
+      return newOrder;
     }
 }
