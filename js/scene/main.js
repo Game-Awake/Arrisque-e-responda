@@ -86,36 +86,9 @@ class Main extends Phaser.Scene
         }
       }
 
-      this.element = this.add.dom(isSafari() ? 0 : width/2, height).createFromCache("question");
+      this.element = this.add.dom(isSafari() ? width/2 : 0, height).createFromCache("question");
       this.element.setVisible(false);
       this.element.addListener("click");
-      this.element.on("click", function (event) {
-          if (event.target.name === "playButton") {
-              var inputText = this.getChildByName("txtTeams");
-
-              //  Have they entered anything?
-              if (inputText.value !== "") {
-              //  Turn off the click events
-                  this.removeListener("click");
-
-                  //  Hide the login element
-                  this.setVisible(false);
-
-                  gameOptions.players = parseInt(inputText.value);
-
-                  scene.scene.start("main", {teams:5});
-              } else {
-                  //  Flash the prompt
-                  scene.scene.tweens.add({
-                      targets: text,
-                      alpha: 0.2,
-                      duration: 250,
-                      ease: "Power3",
-                      yoyo: true,
-                  });
-              }
-          }
-      });
     }
     selectOption(questions,container) {
       if(questions.length == 0 || this.isVisible) {
