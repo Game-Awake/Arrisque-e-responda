@@ -20,7 +20,7 @@ class Game extends Phaser.Scene
                 element.setVisible(true);
                 element.on("click", function (event) {
                     if (event.target.name === "playButton") {
-                        let txtTeamsinputText = this.getChildByName("txtTeams");
+                        let txtTeams = this.getChildByName("txtTeams");
                         let txtURL = this.getChildByName("txtURL");
     
                         let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQaimrfj_ljGSE707zPOua_HRMubxksPFIEX9EIs-NYSdKLDT0NrG4cKCgBZS6RMr1Lan2o6ZBYvEKQ/pub?output=tsv"
@@ -35,7 +35,7 @@ class Game extends Phaser.Scene
                             this.setVisible(false);
     
                             if(jogo) {
-                                scene.scene.start("main", {teams:parseInt(inputText.value)});
+                                scene.scene.start("main", {teams:parseInt(txtTeams.value)});
                             } else {
                                 $.ajax({
                                     type: "GET",
