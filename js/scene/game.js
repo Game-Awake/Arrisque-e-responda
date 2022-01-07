@@ -14,7 +14,7 @@ class Game extends Phaser.Scene
     {
         let scene = this;
         
-                let element = this.add.dom(isSafari() ? 0 : width/2, 200).createFromCache("start");
+                let element = this.add.dom(isSafari() ? width/2 : 0, 200).createFromCache("start");
                 element.addListener("click");
                 console.log(element);
                 element.setVisible(true);
