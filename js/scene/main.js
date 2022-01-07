@@ -86,7 +86,7 @@ class Main extends Phaser.Scene
         }
       }
 
-      this.element = this.add.dom(0, height).createFromCache("question");
+      this.element = this.add.dom(isSafari() ? (width/2) - 180 : 0, 0).createFromCache("question");
       this.element.setVisible(false);
       this.element.addListener("click");
     }
@@ -140,7 +140,7 @@ class Main extends Phaser.Scene
 
       this.tweens.add({
         targets: this.element,
-        y: height/2,
+        y: 150,
         duration: 500,
         ease: "Power3",
       });

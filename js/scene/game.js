@@ -54,7 +54,7 @@ class Game extends Phaser.Scene
                 });
                 this.tweens.add({
                     targets: element,
-                    y: 200,
+                    y: 150,
                     duration: 1000,
                     ease: "Power3",
                 });
