@@ -61,8 +61,8 @@ class Game extends Phaser.Scene
     }
 }
 
-const width = screen.availWidth * 0.8;
-const height = screen.availHeight * 0.8;
+const width = screen.availWidth - 64;
+const height = screen.availHeight - 64;
 
 const config = {
     type: Phaser.CANVAS,
