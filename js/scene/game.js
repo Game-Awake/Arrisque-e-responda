@@ -16,7 +16,6 @@ class Game extends Phaser.Scene
         console.log(isSafari());
                 let element = this.add.dom(isSafari() ? width/2 : 0, 200).createFromCache("start");
                 element.addListener("click");
-                console.log(element);
                 element.setVisible(true);
                 element.on("click", function (event) {
                     if (event.target.name === "playButton") {
