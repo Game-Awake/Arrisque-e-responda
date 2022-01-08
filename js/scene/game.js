@@ -13,11 +13,11 @@ class Game extends Phaser.Scene
     create ()
     {
         let scene = this;
-        console.log(width/2);
-                let element = this.add.dom(width/2, 200).createFromCache("start");
-                element.addListener("click");
-                element.setVisible(true);
-                element.on("click", function (event) {
+
+        let element = this.add.dom(width/2, 200).createFromCache("start");
+        element.addListener("click");
+        element.setVisible(true);
+        element.on("click", function (event) {
                     if (event.target.name === "playButton") {
                         let txtTeams = this.getChildByName("txtTeams");
                         let txtURL = this.getChildByName("txtURL");
