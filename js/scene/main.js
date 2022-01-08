@@ -86,7 +86,7 @@ class Main extends Phaser.Scene
         }
       }
 
-      this.element = this.add.dom(width/2, 0).createFromCache("question");
+      this.element = this.add.dom(isSafari() ? (width/2) : 0, 0).createFromCache("question");
       this.element.setVisible(false);
       this.element.addListener("click");
     }
