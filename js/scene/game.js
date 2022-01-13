@@ -79,7 +79,7 @@ const config = {
 
 let question = null;
 let url = new URL(window.location.href);
-const jogo = url.searchParams.get("jogo");
+let jogo = url.searchParams.get("jogo");
 
 let game = new Phaser.Game(config);
 let tutorial = 0;
