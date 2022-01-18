@@ -84,6 +84,7 @@ class Main extends Phaser.Scene
       if(notUpdate) {
         return;
       }
+      this.isFinal = false;
       if(jogo) {
         this.json = GameAwakeUtils.loadConfig(this,jogo);
       }
