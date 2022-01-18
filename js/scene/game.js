@@ -12,51 +12,61 @@ class Game extends Phaser.Scene
 
     create ()
     {
-        let scene = this;
+        if(parent.teams) {
+            this.callMain(
+                parent.urlArrisque,
+                parent.teams
+            );
+        } else {
+            let element = this.add.dom(width/2, 200).createFromCache("start");
+            element.addListener("click");
+            element.setVisible(true);
+            element.on("click", function (event) {
+                if (event.target.name === "playButton") {
+                    let txtTeams = this.getChildByName("txtTeams");
+                    let txtURL = this.getChildByName("txtURL");
 
-        let element = this.add.dom(width/2, 200).createFromCache("start");
-        element.addListener("click");
-        element.setVisible(true);
-        element.on("click", function (event) {
-                    if (event.target.name === "playButton") {
-                        let txtTeams = this.getChildByName("txtTeams");
-                        let txtURL = this.getChildByName("txtURL");
-    
-                        let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQaimrfj_ljGSE707zPOua_HRMubxksPFIEX9EIs-NYSdKLDT0NrG4cKCgBZS6RMr1Lan2o6ZBYvEKQ/pub?output=tsv"
-                        if(txtURL.value != "") {
-                            url = txtURL.value;
-                            jogo = null;
-                        }
-
-                        this.removeListener("click");
-    
-                            //  Hide the login element
-                            this.setVisible(false);
-    
-                            if(jogo) {
-                                scene.scene.start("main", {teams:parseInt(txtTeams.value)});
-                            } else {
-                                $.ajax({
-                                    type: "GET",
-                                    url: url,
-                                    dataType: "text",
-                                    success: (data) => {
-                                        data = processData(data);
-                                        scene.scene.start("main", {
-                                            json:data,
-                                            teams:parseInt(txtTeams.value)
-                                        });
-                                    }
-                                });
-                            }
+                    let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQaimrfj_ljGSE707zPOua_HRMubxksPFIEX9EIs-NYSdKLDT0NrG4cKCgBZS6RMr1Lan2o6ZBYvEKQ/pub?output=tsv"
+                    if(txtURL.value != "") {
+                        url = txtURL.value;
+                        jogo = null;
                     }
+
+                    this.removeListener("click");
+
+                    this.setVisible(false);
+    
+                    if(jogo) {
+                        scene.scene.start("main", {teams:parseInt(txtTeams.value)});
+                    } else {
+                        this.callMain(url,parseInt(txtTeams.value));
+                    }
+                }
+            });
+            this.tweens.add({
+                targets: element,
+                y: 150,
+                duration: 1000,
+                ease: "Power3",
+            });
+        }
+            
+    }
+
+    callMain(url,teams) {
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "text",
+            success: (data) => {
+                data = processData(data);
+                this.scene.start("main", {
+                    json:data,
+                    teams:teams
                 });
-                this.tweens.add({
-                    targets: element,
-                    y: 150,
-                    duration: 1000,
-                    ease: "Power3",
-                });
+                parent.loadedGame();
+            }
+        });
     }
 }
 
