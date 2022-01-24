@@ -5,6 +5,7 @@ class Main extends Phaser.Scene
     {
         super('main');
         this.teams = [];
+        this.colors = [];
         this.board = {teams:[],types:[]};
         this.json = null;
     }
@@ -100,7 +101,7 @@ class Main extends Phaser.Scene
           fontSize: 20,
           fontFamily: 'Arial',
           align: "center",
-          color:'#0000ff',
+          color:this.colors[id],
           wordWrap: { width: 120, useAdvancedWrap: true }
         }
         let text = this.teams[id];

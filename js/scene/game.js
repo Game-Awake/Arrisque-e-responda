@@ -75,7 +75,7 @@ const height = screen.availHeight - 64;
 
 const config = {
     type: Phaser.CANVAS,
-    backgroundColor: '#125555',
+    backgroundColor: '#eeeeee',
     scale: {
       parent:"divCanvas",
       width: width,
