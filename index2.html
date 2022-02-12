@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="utf-8">
+  </head>
+  <body style="background-color: black;">
+    <div class="grid">
+    <div class="row">
+      <div class="col">
+        <img class="img-horizontal" src="assets/spritesheets/0.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/1.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/2.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/1.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/0.png"/>
+      </div>
+    </div>
+    <div class="rowGame">
+      <div class="col colGame">
+        <img class="img-vertical" src="assets/spritesheets/0.png"/>
+        <img class="img-vertical" src="assets/spritesheets/1.png"/>
+        <img class="img-vertical" src="assets/spritesheets/2.png"/>
+        <img class="img-vertical" src="assets/spritesheets/1.png"/>
+        <img class="img-vertical" src="assets/spritesheets/0.png"/>
+      </div>
+      <div class="col colGame">
+        <iframe id="game" src="game.html"></iframe>
+      </div>
+      <div class="col colGame">
+        <img class="img-vertical" src="assets/spritesheets/0.png"/>
+        <img class="img-vertical"  src="assets/spritesheets/1.png"/>
+        <img class="img-vertical"  src="assets/spritesheets/2.png"/>
+        <img class="img-vertical"  src="assets/spritesheets/1.png"/>
+        <img class="img-vertical"  src="assets/spritesheets/0.png"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <img class="img-horizontal" src="assets/spritesheets/0.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/1.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/2.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/1.png"/>
+        <img class="img-horizontal" src="assets/spritesheets/0.png"/>
+        <div class="project">GAME AWAKE</div>
+      </div>
+    </div>
+    </div>
+    <script type="text/javascript">
+      document.getElementById("game").style.width = (screen.availWidth - 94) + "px";
+      document.getElementById("game").style.height = (screen.availHeight * 0.8) + "px";
+    </script>
+  </body>
+</html>

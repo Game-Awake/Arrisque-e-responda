@@ -134,8 +134,7 @@ class Main extends Phaser.Scene
       
       question = questions[questions.next];
       questions.next++;
-      questions.next = questions.next % questions.length;
-      $("#question").html(question.text);
+      $("#question").html(question.text.replaceAll("\\n","<br/>"));
       $("button").unbind('click');
       $(".answerDiv").remove();
       if(question.answer) {
@@ -146,16 +145,28 @@ class Main extends Phaser.Scene
           $(div,"button").click(() => {
             this.isVisible = false;
             this.element.setVisible(false);
+
+            questions.next = questions.next % questions.length;
             if(questions.next == 0) {
               container.alpha = 0;
             }
             this.calculate(question.answer[i].value,question.weight);            
           });          
         }
+        if(!this.isFinal && false) {
+          let div = $("<div class=\"row answerDiv\"><div class=\"col\"><button class=\"cancel\">Cancelar</button></div></div>");
+          $("#questionRow").append(div);
+          $(div,".cancel").click(() => {
+              this.isVisible = false;
+              this.element.setVisible(false);
+              questions.next--;            
+          });
+        }  
       } else {
         let div = $("<div class=\"row answerDiv\"><div class=\"col-md-6\"><button class=\"right\">Certo</button></div><div class=\"col-md-6\"><button class=\"wrong\">Errado</button></div></div>");
         $("#questionRow").append(div);
         $(".right").click(() => {
+          questions.next = questions.next % questions.length;
           this.isVisible = false;
           this.element.setVisible(false);      
           if(questions.next == 0) {
@@ -164,6 +175,7 @@ class Main extends Phaser.Scene
           this.calculate(1,question.weight);
         });
         $(".wrong").click(() => {
+          questions.next = questions.next % questions.length;
           this.isVisible = false;
           this.element.setVisible(false);
           if(questions.next == 0) {
@@ -178,7 +190,7 @@ class Main extends Phaser.Scene
 
       this.tweens.add({
         targets: this.element,
-        y: 150,
+        y: 10,
         duration: 500,
         ease: "Power3",
       });
@@ -246,19 +258,23 @@ class Main extends Phaser.Scene
       this.showMessage(() => {
         this.text.destroy();
         this.back.destroy();
-        let pos = Phaser.Math.Between(0,this.board.types.length-1);
-        for(let j=0;j<this.board.types[pos].options.length;j++) {
-          let option = this.board.types[pos].options[j];
-          if(option) {
-            this.isFinal = true;
-            this.selectOption(option.questions,option.container);
+        let options = [];
+        for(let i=0;i<this.board.types.length;i++) {
+          for(let j=0;j<this.board.types[i].options.length;j++) {
+            let option = this.board.types[i].options[j];
+            if(option && option.container.alpha == 1) {
+              options.push(option);
+            }
           }
         }
+        let pos = Phaser.Math.Between(0,options.length-1);
+        this.isFinal = true;
+        this.selectOption(options[pos].questions,options[pos].container);
       });
     }
     showMessage(callback) {
       this.back = this.add.rectangle(100,100,800,600,0x000000);
-      this.back.alpha = 0.6;
+      this.back.alpha = 0.4;
       this.back.setInteractive();
       this.back.setOrigin(0);
       this.back.on("pointerdown",callback);

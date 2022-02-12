@@ -52,6 +52,12 @@
     width: 400px;
     height: 80px;
   }
+  .cancel {
+    width: 400px;
+    height: 80px;
+    background-color: blue;
+    color: white;
+  }
   .row {
     height:10%;
   }
