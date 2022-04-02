@@ -21,10 +21,10 @@ class Game extends Phaser.Scene
             let element = this.add.dom(width/2, 200).createFromCache("start");
             element.addListener("click");
             element.setVisible(true);
-            element.on("click", function (event) {
+            element.on("click", (event) => {
                 if (event.target.name === "playButton") {
-                    let txtTeams = this.getChildByName("txtTeams");
-                    let txtURL = this.getChildByName("txtURL");
+                    let txtTeams = element.getChildByName("txtTeams");
+                    let txtURL = element.getChildByName("txtURL");
 
                     let url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQaimrfj_ljGSE707zPOua_HRMubxksPFIEX9EIs-NYSdKLDT0NrG4cKCgBZS6RMr1Lan2o6ZBYvEKQ/pub?output=tsv"
                     if(txtURL.value != "") {
@@ -32,9 +32,9 @@ class Game extends Phaser.Scene
                         jogo = null;
                     }
 
-                    this.removeListener("click");
+                    element.removeListener("click");
 
-                    this.setVisible(false);
+                    element.setVisible(false);
     
                     if(jogo) {
                         scene.scene.start("main", {teams:parseInt(txtTeams.value)});
@@ -60,11 +60,15 @@ class Game extends Phaser.Scene
             dataType: "text",
             success: (data) => {
                 data = processData(data);
+                try {
+                    parent.loadedGame();
+                } catch(ex) {
+                    teams = 1;
+                }
                 this.scene.start("main", {
                     json:data,
                     teams:teams
                 });
-                parent.loadedGame();
             }
         });
     }

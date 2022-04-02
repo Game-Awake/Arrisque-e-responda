@@ -4,14 +4,14 @@ class Main extends Phaser.Scene
     constructor ()
     {
         super('main');
-        this.teams = [];
+        this.teams = 1;
         this.colors = [];
         this.board = {teams:[],types:[]};
         this.json = null;
     }
 
     init(data) {
-      this.teams = data.teams || 0;
+      this.teams = data.teams || 1;
       this.json = data.json;
       this.onlyOneTurn = true;
     }
@@ -20,6 +20,26 @@ class Main extends Phaser.Scene
     {
       this.load.json("jogo","data/"+jogo+".json");
       this.load.html("question", "html/question.html");
+      this.load.audio('question', [
+        'audio/question.ogg',
+        'audio/question.mp3'
+      ]);
+      this.load.audio('right', [
+        'audio/right.ogg',
+        'audio/right.mp3'
+      ]);
+      this.load.audio('wrong', [
+        'audio/wrong.ogg',
+        'audio/wrong.mp3'
+      ]);
+      this.load.audio('win', [
+        'audio/win.ogg',
+        'audio/win.mp3'
+      ]);
+      this.load.audio('draw', [
+        'audio/draw.ogg',
+        'audio/draw.mp3'
+      ]);
     }
 
     create() {
@@ -33,6 +53,12 @@ class Main extends Phaser.Scene
       this.element = this.add.dom(width/2, 0).createFromCache("question");
       this.element.setVisible(false);
       this.element.addListener("click");
+
+      this.questionSound = this.sound.add('question');
+      this.rightSound = this.sound.add('right');
+      this.wrongSound = this.sound.add('wrong');
+      this.winSound = this.sound.add('win');
+      this.drawSound = this.sound.add('draw');
     }
 
     convertQuestion() {
@@ -89,11 +115,11 @@ class Main extends Phaser.Scene
       if(jogo) {
         this.json = GameAwakeUtils.loadConfig(this,jogo);
       }
+      this.teams = [{}];
       if(this.board.teams.length > 0) {
         this.doDestroy();
       }
       this.currentTeam = 0;
-
       for(let i=0;i<this.teams.length*2;i+=2) {
         let id = i/2;
         this.board.teams[id] = {id:id};
@@ -132,6 +158,8 @@ class Main extends Phaser.Scene
         return;
       }
       
+      this.questionSound.play();
+
       question = questions[questions.next];
       questions.next++;
       $("#question").html(question.text.replaceAll("\\n","<br/>"));
@@ -204,18 +232,29 @@ class Main extends Phaser.Scene
           this.showWinner(1-this.currentTeam);
         }
       } else {
-        this.board.teams[this.currentTeam].points += value * weight * 100;
-        this.board.teams[this.currentTeam].score.setText(this.board.teams[this.currentTeam].points);
-        this.board.teams[this.currentTeam].name.setTint(0xff0000);
-        this.selectTeam(this.board.teams[this.currentTeam].name,0);
-        this.currentTeam++;
-        this.currentTeam = this.currentTeam % this.teams.length;
-  
-        if(this.currentTeam == 0 && this.onlyOneTurn) {
-          this.doEnd();
-        } else {
-          this.selectTeam(this.board.teams[this.currentTeam].name);
+        let sound = value == 0 ? this.wrongSound : this.rightSound;
+
+        if(this.board.teams[this.currentTeam]) {
+          this.board.teams[this.currentTeam].points += value * weight * 100;
+          this.board.teams[this.currentTeam].score.setText(this.board.teams[this.currentTeam].points);
+          this.selectTeam(this.board.teams[this.currentTeam].name,"#555555");
+          this.currentTeam++;
+          this.currentTeam = this.currentTeam % this.teams.length;
         }
+  
+        sound.on("complete", () => {
+          sound.removeAllListeners();
+          if(this.currentTeam == 0 && this.onlyOneTurn) {
+            this.doEnd();
+          } else {
+            try {
+              this.selectTeam(this.board.teams[this.currentTeam].name);  
+            } catch(ex) {
+
+            }
+          }
+        });
+        sound.play();
       }
     }
     suffleArray(items) {
@@ -230,8 +269,12 @@ class Main extends Phaser.Scene
       return newOrder;
     }
     selectTeam(team,color="#ffffff") {
-      team.setPadding(16,16);      
-      team.setStyle({backgroundColor:color});
+      try {
+        team.setPadding(16,16);      
+        team.setStyle({backgroundColor:color});
+      } catch(ex) {
+
+      }
     }
     doEnd() {
       let first = this.board.teams[0];
@@ -245,32 +288,39 @@ class Main extends Phaser.Scene
       }
     }
     showWinner(index) {
-      this.message = "Parábens\n" + this.teams[index];
-      this.showMessage(() => {
-        this.text.destroy();
-        this.back.destroy();
-        parent.showNextPhase(index);
-      });
+      setTimeout(() => {
+        this.winSound.play();
+        this.message = "Parábens\n" + this.teams[index];
+        this.showMessage(() => {
+          this.text.destroy();
+          this.back.destroy();
+          parent.showNextPhase(index);
+        });
+      },200);
     }
     showDraw(index) {
-      this.currentTeam = Phaser.Math.Between(0,1);
-      this.message = "Empate\nFoi sorteado o time\n" + this.teams[this.currentTeam]+"\npara responder";
-      this.showMessage(() => {
-        this.text.destroy();
-        this.back.destroy();
-        let options = [];
-        for(let i=0;i<this.board.types.length;i++) {
-          for(let j=0;j<this.board.types[i].options.length;j++) {
-            let option = this.board.types[i].options[j];
-            if(option && option.container.alpha == 1) {
-              options.push(option);
+      setTimeout(() => {
+        this.drawSound.play();
+        this.currentTeam = Phaser.Math.Between(0,1);
+        this.message = "Empate\nFoi sorteado o time\n" + this.teams[this.currentTeam]+"\npara responder";
+        this.selectTeam(this.board.teams[this.currentTeam].name);
+        this.showMessage(() => {
+          this.text.destroy();
+          this.back.destroy();
+          let options = [];
+          for(let i=0;i<this.board.types.length;i++) {
+            for(let j=0;j<this.board.types[i].options.length;j++) {
+              let option = this.board.types[i].options[j];
+              if(option && option.container.alpha == 1) {
+                options.push(option);
+              }
             }
           }
-        }
-        let pos = Phaser.Math.Between(0,options.length-1);
-        this.isFinal = true;
-        this.selectOption(options[pos].questions,options[pos].container);
-      });
+          let pos = Phaser.Math.Between(0,options.length-1);
+          this.isFinal = true;
+          this.selectOption(options[pos].questions,options[pos].container);
+        });
+      },200);
     }
     showMessage(callback) {
       this.back = this.add.rectangle(100,100,800,600,0x000000);
